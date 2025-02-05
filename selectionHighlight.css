@@ -3,7 +3,7 @@
 .cdr.selectionHighlight,
 .cslr.selected-text {
   height: 17px !important;
-  z-index: 10 !important; /* Ensure selections are above Blockman and line highlight */
+  z-index: 10 !important;
 }
 
 /* Hide thin selection artifacts */
@@ -13,27 +13,24 @@
 
 /*###  Selection.Matches  ###*/
 .cdr.selectionHighlight {
-  /* Use VS Code's default selection match styling */
   background-color: var(--vscode-editor-selectionHighlightBackground) !important;
   border: none !important;
   border-radius: 0 !important;
-  opacity: 0.5 !important; /* Make highlight semi-transparent */
+  opacity: 0.5 !important;
 }
 
 /*###  Selection.Active  ###*/
 /* inactive pane */
 .cslr.selected-text {
-  /* Use VS Code's default selection styling */
   background-color: var(--vscode-editor-selectionBackground) !important;
   border: none !important;
   border-radius: 0 !important;
   pointer-events: none !important;
-  opacity: 0.5 !important; /* Make selection semi-transparent */
+  opacity: 0.5 !important;
 }
 
 /* active pane */
 .monaco-editor.focused .cslr.selected-text {
-  /* Use VS Code's default active selection styling */
   background-color: var(--vscode-editor-selectionBackground) !important;
   border: none !important;
   border-radius: 0 !important;
@@ -47,7 +44,51 @@
   background-color: var(--vscode-editor-lineHighlightBackground) !important;
   border: 1px solid var(--vscode-editor-lineHighlightBorder) !important;
   box-sizing: border-box !important;
-  z-index: 5 !important; /* Above Blockman (-9000) but below selection highlights (10) */
-  opacity: 0.5 !important; /* More transparent line highlight */
-  pointer-events: none !important; /* Ensure we can select text through the highlight */
+  z-index: 5 !important;
+  opacity: 0.3 !important;
+  pointer-events: none !important;
+}
+
+/* Error/Warning squiggles and other decorations */
+.monaco-editor .decorationsOverviewRuler,
+.monaco-editor .decorationGlyphMarginClass,
+.monaco-editor .mtk1,
+.monaco-editor .squiggly-error,
+.monaco-editor .squiggly-warning,
+.monaco-editor .squiggly-info,
+.monaco-editor .squiggly-hint,
+.monaco-editor .detected-link,
+.monaco-editor .decorationHighlight,
+.monaco-editor .line-decoration,
+.monaco-editor .bracket-match,
+.monaco-editor .findMatch,
+.monaco-editor .current-findMatch,
+.monaco-editor .rangeHighlight,
+.monaco-editor .selectionHighlight,
+.monaco-editor .wordHighlight,
+.monaco-editor .wordHighlightStrong,
+.monaco-editor .findScope {
+  z-index: 20 !important; /* Set higher than selection */
+}
+
+/* Force error decorations to be visible */
+.monaco-editor .view-overlays [class*="squiggly"],
+.monaco-editor .view-overlays [class*="diagnostic-"],
+.monaco-editor .view-overlays .error-token,
+.monaco-editor .view-overlays .error {
+  z-index: 20 !important;
+  opacity: 1 !important;
+  pointer-events: none !important;
+}
+
+/* Ensure error background colors are visible */
+.monaco-editor .error-token,
+.monaco-editor .inline-error-decoration {
+  background-color: var(--vscode-editorError-background) !important;
+  z-index: 20 !important;
+}
+
+/* Make sure the error gutter indicators are visible */
+.monaco-editor .margin-view-overlays .cgmr {
+  z-index: 20 !important;
 }
